@@ -1,13 +1,12 @@
 module github.com/sl1pm4t/tokenxchange
 
-go 1.20
+go 1.21.5
 
 require (
 	github.com/coreos/go-oidc/v3 v3.8.0
 	golang.org/x/net v0.19.0
 	golang.org/x/oauth2 v0.15.0
 	k8s.io/apimachinery v0.26.10
-	k8s.io/client-go v0.26.10
 )
 
 require (
