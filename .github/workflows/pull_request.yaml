@@ -1,0 +1,19 @@
+name: Release
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build-image:
+    name: Artifacts
+    uses: ./.github/workflows/artifacts.yaml
+    with:
+      publish: false
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+      security-events: write
