@@ -1,4 +1,4 @@
-package main
+package exchange
 
 import (
 	"context"
