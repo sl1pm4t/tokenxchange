@@ -15,6 +15,7 @@ import (
 func defaultHeader() http.Header {
 	header := make(http.Header)
 	header.Add("Content-Type", "application/x-www-form-urlencoded")
+	header.Add("User-Agent", "tokenxchange")
 	return header
 }
 
