@@ -3,14 +3,14 @@ module github.com/sl1pm4t/tokenxchange
 go 1.21.3
 
 require (
-	github.com/coreos/go-oidc/v3 v3.8.0
+	github.com/coreos/go-oidc/v3 v3.10.0
 	github.com/spf13/cobra v1.8.0
 	golang.org/x/oauth2 v0.15.0
 	k8s.io/apimachinery v0.26.10
 )
 
 require (
-	github.com/go-jose/go-jose/v3 v3.0.0 // indirect
+	github.com/go-jose/go-jose/v4 v4.0.1 // indirect
 	github.com/go-logr/logr v1.2.3 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
