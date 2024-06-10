@@ -4,8 +4,6 @@ ___ ____ _  _ ____ _  _    _  _ ____ _  _ ____ _  _ ____ ____
  |  |__| | \_ |___ | \|    _/\_ |___ |  | |  | | \| |__] |___
 ```
 
-Give a token, get a token! 
-It's a Christmas Miracle!
 
 ## What is this?
 
