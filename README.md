@@ -9,10 +9,10 @@ It's a Christmas Miracle!
 
 ## What is this?
 
-This is a Kubernetes client credentials exec provider that enables cross Kubernets cluster authorization using 
+This is a Kubernetes client credentials exec provider that enables cross Kubernetes cluster authorization using 
 Kubernetes Service Account tokens and [Dex token-exchange](https://github.com/dexidp/dex/pull/2806).
 
-Originally developed to allow ArgoCD Application Controller on one cluster manage resources on a remote cluster in a 
+Originally developed to allow ArgoCD Application Controller on one cluster to manage resources on a remote cluster in a 
 multi cloud environment where using GKE / EKS IAM authentication was impractical.
 
 ## How it works
