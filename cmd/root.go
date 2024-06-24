@@ -35,7 +35,7 @@ func init() {
 	rootCmd.Flags().StringVar(&clientSecret, "client-secret", "", "OIDC Client Secret")
 	rootCmd.Flags().StringVar(&dexConnector, "dex-connector", "", "Name of the Dex Connector")
 	rootCmd.Flags().StringVar(&oidcEndpoint, "oidc-endpoint", "", "OIDC URL (e.g. Dex URL)")
-	rootCmd.Flags().StringSliceVar(&scopes, "scopes", []string{oidc.ScopeOpenID, "email", "federated:id"}, "OIDC Client ID")
+	rootCmd.Flags().StringSliceVar(&scopes, "scopes", []string{oidc.ScopeOpenID, "email", "federated:id"}, "OIDC Scopes")
 	rootCmd.Flags().StringVar(&tokenFile, "token-file", ksaTokenFilePath, "Full path to token file")
 
 }
@@ -55,29 +55,37 @@ for a token signed by another OIDC issuer (e.g. Dex).`,
 			log.Fatal(fmt.Errorf("could not read token file: %w", err))
 		}
 
-		resp, err := exchange.ExchangeToken(
-			ctx,
-			oidcEndpoint,
-			&exchange.TokenExchangeRequest{
-				DexConnector:     dexConnector,
-				Scope:            scopes,
-				SubjectToken:     string(tokenBytes),
-				SubjectTokenType: tokenTypeIdToken,
-			},
-			exchange.ClientAuthentication{
-				AuthStyle:    oauth2.AuthStyleInHeader,
-				ClientID:     clientID,
-				ClientSecret: clientSecret,
-			},
-			nil,
-		)
-		if err != nil {
-			log.Fatal(fmt.Errorf("token exchange failed: %w", err))
+		if oidcEndpoint != "" {
+			resp, err := exchange.ExchangeToken(
+				ctx,
+				oidcEndpoint,
+				&exchange.TokenExchangeRequest{
+					DexConnector:     dexConnector,
+					Scope:            scopes,
+					SubjectToken:     string(tokenBytes),
+					SubjectTokenType: tokenTypeIdToken,
+				},
+				exchange.ClientAuthentication{
+					AuthStyle:    oauth2.AuthStyleInHeader,
+					ClientID:     clientID,
+					ClientSecret: clientSecret,
+				},
+				nil,
+			)
+			if err != nil {
+				log.Fatal(fmt.Errorf("token exchange failed: %w", err))
+			}
+			tokenExpiration := time.Now().Local().Add(time.Duration(resp.ExpiresIn) * time.Second)
+			fmt.Println(credentials.FormatExecCredential(resp.AccessToken, tokenExpiration))
+		} else {
+			// no OIDC endpoint configured so assume we are attempting to use the Service Account token directly
+
+			// TODO: decode token to get real expiration
+			tokenExpiration := time.Now().Local().Add(time.Duration(60) * time.Second)
+
+			fmt.Println(credentials.FormatExecCredential(string(tokenBytes), tokenExpiration))
 		}
 
-		tokenExpiration := time.Now().Local().Add(time.Duration(resp.ExpiresIn) * time.Second)
-
-		fmt.Println(credentials.FormatExecCredential(resp.AccessToken, tokenExpiration))
 	},
 }
 
