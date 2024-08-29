@@ -5,7 +5,7 @@ go 1.21.3
 require (
 	github.com/coreos/go-oidc/v3 v3.10.0
 	github.com/spf13/cobra v1.8.0
-	golang.org/x/oauth2 v0.21.0
+	golang.org/x/oauth2 v0.22.0
 	k8s.io/apimachinery v0.26.10
 )
 
