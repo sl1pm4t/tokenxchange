@@ -18,6 +18,4 @@ jobs:
       - run: go build -v
 
       - name: golangci-lint
-        uses: golangci/golangci-lint-action@v3
-        with:
-          version: v1.55.2
+        uses: golangci/golangci-lint-action@v8
