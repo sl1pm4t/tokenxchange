@@ -4,12 +4,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"golang.org/x/oauth2"
 	"io"
 	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
+
+	"golang.org/x/oauth2"
 )
 
 func defaultHeader() http.Header {
@@ -60,7 +61,11 @@ func makeRequest(ctx context.Context, endpoint string, data url.Values, authenti
 	if err != nil {
 		return nil, fmt.Errorf("oauth2/google: invalid response from Secure Token Server: %v", err)
 	}
-	defer resp.Body.Close()
+	defer func() {
+		if err := resp.Body.Close(); err != nil {
+			fmt.Println("error closing response body:", err)
+		}
+	}()
 
 	body, err := io.ReadAll(io.LimitReader(resp.Body, 1<<20))
 	if err != nil {
