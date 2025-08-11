@@ -1,6 +1,7 @@
 module github.com/sl1pm4t/tokenxchange
 
-go 1.21.3
+go 1.24.0
+
 toolchain go1.24.1
 
 require (
