@@ -7,7 +7,7 @@ toolchain go1.24.1
 require (
 	github.com/coreos/go-oidc/v3 v3.15.0
 	github.com/spf13/cobra v1.8.0
-	golang.org/x/oauth2 v0.29.0
+	golang.org/x/oauth2 v0.30.0
 	k8s.io/apimachinery v0.26.10
 )
 
